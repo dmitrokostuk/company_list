@@ -13,8 +13,9 @@ from .views import (
 urlpatterns = [
 	url(r'^$', company_list ,name='company'),
     url(r'^create/$', company_create),
-    url(r'^(?P<slug>[\w-]+)/$',company_detail , name='detail'),
-    url(r'^(?P<slug>[\w-]+)/edit/$', company_edit, name='edit'),
+    url(r'^(?P<id>\d+)/$',company_detail , name='detail'),
+
+    url(r'^(?P<id>\d+)/edit/$', company_edit, name='edit'),
     url(r'^(?P<slug>[\w-]+)/delete/$', company_delete),
     #url(r'^posts/$', "<appname>.views.<function_name>"),
 ]

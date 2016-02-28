@@ -75,23 +75,23 @@ WSGI_APPLICATION = 'company.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-   'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-#POSTGRESSQL
 #DATABASES = {
  #   'default': {
-        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        #'NAME': 'mytest',
-        #'USER': 'testuser',
-        #'PASSWORD': 'password',
-        #'HOST': 'localhost',
-       # 'PORT': '',
+  #      'ENGINE': 'django.db.backends.sqlite3',
+   #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     #}
 #}
+#POSTGRESSQL
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'companydatabase',
+        'USER': 'companydatabaseuser',
+        'PASSWORD': 'companypassword',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body>
-<h1>qqq</h1>
+<br>
+<h1>{{ company_name}} is working!</h1>
+{% for obj in company_list %}
+
+{% url "company:detail" id=obj.id %}
+<a href="{{ obj.get_absolute_url}}">{{obj.company_name}}</a><br/>
+{{obj.company_estimated_earnings}}<br/>
+
+{{obj.content}}<br/>
+{% endfor %}
+
 </body>
 </html>

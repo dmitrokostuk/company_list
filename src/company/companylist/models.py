@@ -10,7 +10,6 @@ from django.utils.text import slugify
 # Create your models here.
 
 # Create your models here.
-
 def upload_location(instance, filename):
     #filebase, extension = filename.split(".")
     #return "%s/%s.%s" %(instance.id, instance.id, extension)
@@ -25,15 +24,9 @@ def upload_location(instance, filename):
     """
     return "%s/%s" %(new_id, filename)
 
-
-class PostManager(models.Manager):
-    def active(self, *args, **kwargs):
-        # Post.objects.all() = super(PostManager, self).all()
-        return super(PostManager, self).filter(draft=False).filter(publish__lte=timezone.now())
-
 class Company(models.Model):
 
-    parent = models.ForeignKey('self',blank=True,null=True)
+    parent = models.ForeignKey('self',blank=True,null=True,related_name='children')
     company_name=models.CharField(max_length=120)
     company_estimated_earnings=models.CharField(max_length=1024)
     image = models.ImageField(upload_to=upload_location,
@@ -44,39 +37,25 @@ class Company(models.Model):
     height_field = models.IntegerField(default=0)
     width_field = models.IntegerField(default=0)
     content = models.TextField()
-    slug = models.SlugField(unique=True)
-
-    objects = PostManager()
 
 
     def __unicode__(self):
         return u"%s "%(self.company_name)
 
+
+    def __str__(self):
+        return self.company_name
+
+    def __unicode__(self):
+        return u"%s "%(self.content)
+
+
+    def __str__(self):
+        return self.content
+
+
     class Meta:
-        ordering = ["parent", "company_name"]
-
-def get_absolute_url(self):
-        return reverse("company:detail", kwargs={"slug": self.slug})
-
-
-def create_slug(instance, new_slug=None):
-    slug = slugify(instance.title)
-    if new_slug is not None:
-        slug = new_slug
-    qs = Company.objects.filter(slug=slug).order_by("-id")
-    exists = qs.exists()
-    if exists:
-        new_slug = "%s-%s" %(slug, qs.first().id)
-        return create_slug(instance, new_slug=new_slug)
-    return slug
-
-
-def pre_save_post_receiver(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = create_slug(instance)
-
-
-
-pre_save.connect(pre_save_post_receiver, sender=Company)
-
-
+        ordering = ['parent__id'
+                    ]
+    def get_absolute_url(self):
+        return reverse("company:detail", kwargs={"id": self.id})

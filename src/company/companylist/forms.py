@@ -4,13 +4,14 @@ from django import forms
 from .models import Company
 
 
-class PostForm(forms.ModelForm):
+class Company_Add_Form(forms.ModelForm):
     class Meta:
         model = Company
         fields = [
             "company_name",
+            "parent",
+            "company_estimated_earnings",
             "content",
-            "image",
-            "draft",
-            "publish",
+
         ]
+
