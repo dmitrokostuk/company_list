@@ -28,6 +28,12 @@
 
 
          {% for obj in company_list %}
+           <ul>
+
+               {% include "tree_template.html" %}
+           </ul>
+
+
         <tbody>
 
          <tr>
@@ -60,22 +66,7 @@
          {% endfor %}
 
     </table>
-     <div class="pagination">
-        <span class="step-links">
-            {% if contacts.has_previous %}
-            <a href="?page={{ obj.previous_page_number }}">previous</a>
-            {% endif %}
 
-         <span class="current">
-                Page {{ obj.number }} of {{ contacts.paginator.num_pages }}.
-            </span>
-
-            {% if contacts.has_next %}
-            <a href="?page={{ obj.next_page_number }}">next</a>
-            {% endif %}
-        </span>
-        </div>
-   </div>
 
 
  </div>

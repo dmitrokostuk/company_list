@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from mptt.models import MPTTModel, TreeForeignKey
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models

@@ -49,14 +49,7 @@ def company_detail(request, id = None):
 
 def company_list(request):
     queryset_list = Company.objects.all()
-    paginator = Paginator(queryset_list,5)
-    page = request.GET.get('page')
-    try:
-        queryset_list = paginator.page(page)
-    except PageNotAnInteger:
-        queryset_list = paginator.page(1)
-    except EmptyPage:
-        queryset_list = paginator.page(paginator.num_pages)
+
     context = {
                 "company_list": queryset_list,
                 "company_name":"List",
