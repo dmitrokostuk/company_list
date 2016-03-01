@@ -16,6 +16,6 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/$',company_detail , name='detail'),
 
     url(r'^(?P<id>\d+)/edit/$', company_edit, name='edit'),
-    url(r'^(?P<id>\d+)/delete/$', company_delete),
+    url(r'^(?P<id>\d+)/delete/$', company_delete, name='delete'),
     #url(r'^posts/$', "<appname>.views.<function_name>"),
 ]

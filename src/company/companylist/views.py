@@ -17,11 +17,11 @@ def company_create(request):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
-        return HttpResponseRedirect(instance.get_absolute_url(),reverse('company'))
+        return HttpResponseRedirect(instance.get_absolute_url())
     context = {
             "form":form,
         }
-    return render(request, "company_form.html", context,reverse('company') )
+    return render(request, "company_form.html", context, )
 
 def company_edit(request,id=None):
     instance  = get_object_or_404(Company,id=id)
@@ -48,13 +48,27 @@ def company_detail(request, id = None):
     return render(request, "company_detail.html",context )
 
 def company_list(request):
-    queryset = Company.objects.all()
+    queryset_list = Company.objects.all()
+    paginator = Paginator(queryset_list,5)
+    page = request.GET.get('page')
+    try:
+        queryset_list = paginator.page(page)
+    except PageNotAnInteger:
+        queryset_list = paginator.page(1)
+    except EmptyPage:
+        queryset_list = paginator.page(paginator.num_pages)
     context = {
-                "company_list": queryset,
-                "company_name":"List"
+                "company_list": queryset_list,
+                "company_name":"List",
 
                }
     return render(request, "company_list.html",context )
+
+
+
+
+
+
 
 
 def company_delete(request, id=None):

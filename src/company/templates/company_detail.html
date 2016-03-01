@@ -8,15 +8,52 @@
 
 
 {% block content %}
-<div class='col-sm-6 col-sm-offset-3'>
- <h1>{{ title }} <small>{{ instance.timestamp }}</small></h1>
 
 
- {{ instance.company_name}}<br/>
- {{ instance.company_estimated_earnings }}<br/>
- {{ instance.content|linebreaks }}<br/>
- {{ instance.parent }}<br/>
- {{ instance.id }}<br/>
+    <div class="row" id="header">
+      <div class="col-xs-8">
+        <h1> {{ instance.company_name}}  </h1>
+      </div>
 
+    </div>
+
+     <div class="com-sm-2">
+        <button type="button" class="btn btn-default"><a href="/company"> Home</a> </button>
+     </div>
+
+
+<div class='col-sm-9 col-sm-offset-3'>
+
+
+
+   <table class="table table-hover table-striped ">
+
+        <thead>
+        <tr>
+          <th>Logo</th>
+
+          <th> Estimated Earnings</th>
+          <th> Information </th>
+
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+
+           <td></td>
+           <td> {{ instance.company_estimated_earnings }}<br/></td>
+           <td>{{ instance.content|linebreaks }}<br/> </td>
+
+          </tr>
+
+        </tbody>
+
+
+
+
+
+
+
+ </table>
 </div>
 {% endblock content %}

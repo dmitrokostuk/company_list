@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+from mptt.models import MPTTModel, TreeForeignKey
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -24,9 +24,11 @@ def upload_location(instance, filename):
     """
     return "%s/%s" %(new_id, filename)
 
+
+
 class Company(models.Model):
 
-    parent = models.ForeignKey('self',blank=True,null=True,related_name='children')
+    parent = models.ForeignKey('self',blank=True,null=True,related_name='children',db_index=True)
     company_name=models.CharField(max_length=120)
     company_estimated_earnings=models.CharField(max_length=1024)
     image = models.ImageField(upload_to=upload_location,
