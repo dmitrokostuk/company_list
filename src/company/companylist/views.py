@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django.core.urlresolvers import reverse
 
 # Create your views here.
 from .forms import Company_Add_Form
@@ -16,11 +17,11 @@ def company_create(request):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
-        return HttpResponseRedirect(instance.get_absolute_url())
+        return HttpResponseRedirect(instance.get_absolute_url(),reverse('company'))
     context = {
             "form":form,
         }
-    return render(request, "company_form.html", context )
+    return render(request, "company_form.html", context,reverse('company') )
 
 def company_edit(request,id=None):
     instance  = get_object_or_404(Company,id=id)
@@ -28,14 +29,14 @@ def company_edit(request,id=None):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
-        return HttpResponseRedirect(instance.get_absolute_url())
+        return HttpResponseRedirect(instance.get_absolute_url(),reverse('edit'))
 
     context = {
         "company.name": instance.company_name,
         "instance":instance,
         "form":form
     }
-    return render(request, "company_form.html",context )
+    return render(request, "company_form.html",context, )
 
 
 def company_detail(request, id = None):
@@ -56,5 +57,8 @@ def company_list(request):
     return render(request, "company_list.html",context )
 
 
-def company_delete(request):
-    return render(request, "post_form.html" )
+def company_delete(request, id=None):
+    instanse = get_object_or_404(Company,id=id)
+    instanse.delete()
+    messages.success(request,"Company Deleted")
+    return redirect("company:company" )
