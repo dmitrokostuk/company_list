@@ -40,15 +40,19 @@ def company_edit(request,id=None):
 
 
 def company_detail(request, id = None):
+
     instance  = get_object_or_404(Company,id=id)
+   # queryset_list = Company.objects.filter(parent=id)
     context = {
+    #    "child_company":queryset_list,
         "company_name":instance.company_name,
         "instance": instance
     }
     return render(request, "company_detail.html",context )
 
 def company_list(request):
-    queryset_list = Company.objects.all()
+
+    queryset_list = Company.objects.filter(parent = None )
 
     context = {
                 "company_list": queryset_list,

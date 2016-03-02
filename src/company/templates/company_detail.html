@@ -31,7 +31,7 @@
         <thead>
         <tr>
           <th>Logo</th>
-
+          <th>Company Children </th>
           <th> Estimated Earnings</th>
           <th> Information </th>
 
@@ -39,7 +39,9 @@
         </thead>
         <tbody>
           <tr>
-
+            {% for obj in company_detail %}
+           <td><td><a href='{{ obj.get_absolute_url }}'> {{ obj.company_name }}</a></td></td>
+           {% endfor %}
            <td></td>
            <td> {{ instance.company_estimated_earnings }}<br/></td>
            <td>{{ instance.content|linebreaks }}<br/> </td>
